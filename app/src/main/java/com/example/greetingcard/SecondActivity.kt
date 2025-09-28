@@ -1,6 +1,5 @@
 package com.example.greetingcard
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,10 +15,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.greetingcard.ui.components.ExplicitNavigation
-import com.example.greetingcard.ui.components.ImplicitNavigation
 import com.example.greetingcard.ui.theme.GreetingCardTheme
 
-class MainActivity : ComponentActivity() {
+class SecondActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -29,7 +27,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainScreen()
+                    SecondScreen(modifier = Modifier)
                 }
             }
         }
@@ -37,35 +35,41 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainScreen() {
-    Column {
-        Greeting("Karsten Larson", "1400980")
-        ExplicitNavigation(
-            text = "Start Activity Explicitly",
-            activity = SecondActivity::class.java
-        )
-        ImplicitNavigation(
-            text = "Start Activity Implicitly",
-        )
-    }
-}
+fun SecondScreen(modifier: Modifier) {
+    val challenges = listOf(
+        "Device Fragmentation",
+        "OS Fragmentation",
+        "Unstable and Dynamic Environment",
+        "Rapid Changes",
+        "Tool Support",
+        "Low User Tolerance"
+    )
 
-@Composable
-fun Greeting(name: String, id: String, modifier: Modifier = Modifier) {
-    Surface(
-        color = Color.LightGray,
-    ) {
-        Text(
-            text = "Name: $name\nID: $id",
-            modifier = modifier.padding(24.dp)
-        )
+    Surface(color = Color.LightGray) {
+        Column {
+            Text(
+                text = "Challenges",
+                maxLines = 1,
+                modifier = modifier.padding(24.dp)
+            )
+
+            for (challenge in challenges) {
+                Text(
+                    text = "- $challenge",
+                    softWrap = true,
+                    modifier = modifier.padding(vertical = 2.dp, horizontal = 24.dp)
+                )
+            }
+
+            ExplicitNavigation("Main Activity", MainActivity::class.java)
+        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun SecondScreenPreview() {
     GreetingCardTheme {
-        MainScreen()
+        SecondScreen(modifier = Modifier)
     }
 }
