@@ -1,6 +1,5 @@
 package com.example.greetingcard
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -46,6 +45,10 @@ fun MainScreen() {
         )
         ImplicitNavigation(
             text = "Start Activity Implicitly",
+        )
+        ExplicitNavigation(
+            text = "View Image Activity",
+            activity = ImageActivity::class.java
         )
     }
 }
